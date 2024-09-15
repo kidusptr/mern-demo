@@ -9,6 +9,7 @@ const Home = () => {
     fetchProducts();
   }, [fetchProducts]);
   console.log(products);
+
   return (
     <Container maxH={"container.xl"} py={12}>
       <VStack spacing={8}>
