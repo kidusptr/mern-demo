@@ -106,14 +106,16 @@ const ProductCard = ({ product }) => {
             icon={<EditIcon />}
             colorScheme="blue"
             onClick={() => {
-              setAction("update").then(onOpen);
+              setAction("update");
+              onOpen;
             }}
           />
           <IconButton
             icon={<DeleteIcon />}
             colorScheme="red"
             onClick={() => {
-              setAction("delete"), onOpen;
+              setAction("delete");
+              onOpen;
             }}
           />
         </HStack>
