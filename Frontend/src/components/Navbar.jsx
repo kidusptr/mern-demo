@@ -18,7 +18,7 @@ const Navbar = () => {
         h={16}
         alignItems={"center"}
         justifyContent={"space-between"}
-        flexDir={{ base: "column", sm: "row" }}
+        flexDir={{ base: "row", sm: "row" }}
       >
         <Text
           bgGradient="linear(to-r, cyan.400, blue.500)"
