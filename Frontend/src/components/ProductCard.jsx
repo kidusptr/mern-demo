@@ -33,6 +33,7 @@ const ProductCard = ({ product }) => {
   const { updateProduct } = useProductStore();
   const toast = useToast();
   const handleUpdateProduct = async (id, updatedProduct) => {
+    setAction("update");
     const { success, message } = await updateProduct(id, updatedProduct);
     onClose();
     if (!success) {
@@ -54,6 +55,7 @@ const ProductCard = ({ product }) => {
     }
   };
   const handleDeleteProduct = async (id) => {
+    setAction("delete");
     const { success, message } = await deleteProduct(id);
     if (!success) {
       toast({
@@ -73,6 +75,7 @@ const ProductCard = ({ product }) => {
       });
     }
   };
+  const [action, setAction] = useState("");
 
   return (
     <Box
@@ -99,82 +102,122 @@ const ProductCard = ({ product }) => {
           ${product.price}
         </Text>
         <HStack spacing={2}>
-          <IconButton icon={<EditIcon />} colorScheme="blue" onClick={onOpen} />
+          <IconButton
+            icon={<EditIcon />}
+            colorScheme="blue"
+            onClick={() => {
+              console.log("clicked"), onOpen;
+            }}
+          />
           <IconButton
             icon={<DeleteIcon />}
             colorScheme="red"
-            onClick={() => handleDeleteProduct(product._id)}
+            onClick={() => {
+              setAction("delete"), onOpen;
+            }}
           />
         </HStack>
       </Box>
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay>
-          <ModalContent>
-            <ModalHeader>Update Product</ModalHeader>
-            <ModalCloseButton />
-            <ModalBody>
-              <VStack spacing={4}>
-                <Input
-                  type="text"
-                  placeholder="Product Name"
-                  value={updatedProduct.name}
-                  onChange={(e) => {
-                    setUpdatedProduct({
-                      ...updatedProduct,
-                      name: e.target.value,
-                    });
-                  }}
-                />
-                <Input
-                  type="number"
-                  placeholder="Product Price"
-                  value={updatedProduct.price}
-                  onChange={(e) => {
-                    setUpdatedProduct({
-                      ...updatedProduct,
-                      price: e.target.value,
-                    });
-                  }}
-                />
-                <Input
-                  type="text"
-                  placeholder="Product Description"
-                  value={updatedProduct.description}
-                  onChange={(e) => {
-                    setUpdatedProduct({
-                      ...updatedProduct,
-                      description: e.target.value,
-                    });
-                  }}
-                />
-                <Input
-                  type="text"
-                  placeholder="Image URL"
-                  value={updatedProduct.image}
-                  onChange={(e) => {
-                    setUpdatedProduct({
-                      ...updatedProduct,
-                      image: e.target.value,
-                    });
-                  }}
-                />{" "}
-              </VStack>
-            </ModalBody>
-            <ModalFooter>
-              <Button
-                colorScheme="blue"
-                mr={3}
-                onClick={() => handleUpdateProduct(product._id, updatedProduct)}
-              >
-                Update
-              </Button>
-              <Button variant="ghost" onClick={onClose}>
-                Cancel
-              </Button>
-            </ModalFooter>
-          </ModalContent>
-        </ModalOverlay>
-      </Modal>
+      {action === "update" && (
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay>
+            <ModalContent>
+              <ModalHeader>Update Product</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <VStack spacing={4}>
+                  <Input
+                    type="text"
+                    placeholder="Product Name"
+                    value={updatedProduct.name}
+                    onChange={(e) => {
+                      setUpdatedProduct({
+                        ...updatedProduct,
+                        name: e.target.value,
+                      });
+                    }}
+                  />
+                  <Input
+                    type="number"
+                    placeholder="Product Price"
+                    value={updatedProduct.price}
+                    onChange={(e) => {
+                      setUpdatedProduct({
+                        ...updatedProduct,
+                        price: e.target.value,
+                      });
+                    }}
+                  />
+                  <Input
+                    type="text"
+                    placeholder="Product Description"
+                    value={updatedProduct.description}
+                    onChange={(e) => {
+                      setUpdatedProduct({
+                        ...updatedProduct,
+                        description: e.target.value,
+                      });
+                    }}
+                  />
+                  <Input
+                    type="text"
+                    placeholder="Image URL"
+                    value={updatedProduct.image}
+                    onChange={(e) => {
+                      setUpdatedProduct({
+                        ...updatedProduct,
+                        image: e.target.value,
+                      });
+                    }}
+                  />{" "}
+                </VStack>
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  colorScheme="blue"
+                  mr={3}
+                  onClick={() =>
+                    handleUpdateProduct(product._id, updatedProduct)
+                  }
+                >
+                  Update
+                </Button>
+                <Button variant="ghost" onClick={onClose}>
+                  Cancel
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </ModalOverlay>
+        </Modal>
+      )}
+      {
+        /* Delete Modal */
+        action === "delete" && (
+          <Modal isOpen={isOpen} onClose={onClose}>
+            <ModalOverlay>
+              <ModalContent>
+                <ModalHeader>Delete Product</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                  <Text>Are you sure you want to delete this product?</Text>
+                </ModalBody>
+                <ModalFooter>
+                  <Button
+                    colorScheme="red"
+                    mr={3}
+                    onClick={() => handleDeleteProduct(product._id)}
+                  >
+                    Delete
+                  </Button>
+                  <Button variant="ghost" onClick={onClose}>
+                    Cancel
+                  </Button>
+                </ModalFooter>
+              </ModalContent>
+            </ModalOverlay>
+          </Modal>
+        )
+      }
     </Box>
   );
 };
