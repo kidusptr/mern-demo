@@ -106,7 +106,7 @@ const ProductCard = ({ product }) => {
             icon={<EditIcon />}
             colorScheme="blue"
             onClick={() => {
-              console.log("clicked"), onOpen;
+              setAction("update").then(onOpen);
             }}
           />
           <IconButton
