@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import Product from "../models/product.model.js";
 
+
 export const getProducts = async (req, res) => {
   try {
     const products = await Product.find();
@@ -70,7 +71,7 @@ export const updateProduct = async (req, res) => {
 };
 
 export const deleteProduct = async (req, res) => {
-  const { id } = req.params;
+  const {id} = req.params;
 
   const product = await Product.findById(id);
   if (!product) {
