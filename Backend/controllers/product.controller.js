@@ -70,6 +70,11 @@ export const updateProduct = async (req, res) => {
     const updatedProduct = await Product.findByIdAndUpdate(id, product, {
       new: true,
     });
+    sendNotification(
+      product.fcmToken,
+      "Success",
+      "Your product was updated successfully!!!"
+    );
     res.status(200).json({ success: true, data: updatedProduct });
   } catch (error) {
     console.log("Error:", error.message);
