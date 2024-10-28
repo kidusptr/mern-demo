@@ -41,7 +41,11 @@ export const createProduct = async (req, res) => {
   const newProduct = new Product(product);
   try {
     await newProduct.save();
-    sendNotification(product.fcmToken);
+    sendNotification(
+      product.fcmToken,
+      "Success",
+      "Your product was added successfully!!!"
+    );
     res.status(201).json({ success: true, data: newProduct });
   } catch (error) {
     console.log("Error:", error.message);
