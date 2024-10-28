@@ -6,6 +6,7 @@ export const getProducts = async (req, res) => {
   try {
     const products = await Product.find();
     await sendNotification();
+    //console.log("Products:", products);
     res.status(200).json({ success: true, data: products });
   } catch (error) {
     console.log("Error:", error.message);

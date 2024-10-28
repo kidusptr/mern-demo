@@ -1,12 +1,11 @@
 // firebase.js
 import admin from "firebase-admin";
-import { readFileSync } from "fs";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 // Load the service account key
-const serviceAccount = JSON.parse(
-  readFileSync(new URL("./adminkey.json", import.meta.url), "utf8")
-);
-
+const serviceAccount = JSON.parse(process.env.ACCOUNT_KEY);
 // Initialize Firebase Admin SDK
 try {
   admin.initializeApp({
