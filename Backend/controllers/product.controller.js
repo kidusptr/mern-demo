@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
 import Product from "../models/product.model.js";
-
+import { sendNotification } from "../config/send_notification.js";
 
 export const getProducts = async (req, res) => {
   try {
     const products = await Product.find();
+    await sendNotification();
     res.status(200).json({ success: true, data: products });
   } catch (error) {
     console.log("Error:", error.message);
@@ -71,7 +72,7 @@ export const updateProduct = async (req, res) => {
 };
 
 export const deleteProduct = async (req, res) => {
-  const {id} = req.params;
+  const { id } = req.params;
 
   const product = await Product.findById(id);
   if (!product) {

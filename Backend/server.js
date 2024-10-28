@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import path from "path";
 
 import { connectDB } from "./config/db.js";
+//import { connectFCM } from "./config/fcm_config.js";
 import productRoute from "./routes/product.route.js";
 
 dotenv.config();
@@ -29,5 +30,6 @@ if (process.env.NODE_ENV === "development") {
 
 app.listen(PORT, () => {
   connectDB();
+  //connectFCM();
   console.log("Server started on port localhost:" + PORT);
 });
