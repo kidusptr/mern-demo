@@ -2,11 +2,10 @@
 import { messaging } from "./fcm_config.js";
 
 // Function to send a notification
-export async function sendNotification() {
+export async function sendNotification(token) {
   try {
     const response = await messaging.send({
-      token:
-        "fCTJqPpVQfyGXJjhDpUVHc:APA91bF0Dbl6GSIbfLe5mOfIHlz4sTnF3VSbYGo0x5eFfFQXGkgu45nAhN5srBuaFh6feYtCuV5hs40gOxRKCmN-RuaqhUKUmFiuzv3Xe8QEyAmM2dvKXx8",
+      token: token,
       notification: {
         title: "test",
         body: "test",

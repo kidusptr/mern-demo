@@ -5,7 +5,7 @@ import { sendNotification } from "../config/send_notification.js";
 export const getProducts = async (req, res) => {
   try {
     const products = await Product.find();
-    await sendNotification();
+    //await sendNotification();
     //console.log("Products:", products);
     res.status(200).json({ success: true, data: products });
   } catch (error) {
@@ -41,6 +41,7 @@ export const createProduct = async (req, res) => {
   const newProduct = new Product(product);
   try {
     await newProduct.save();
+    sendNotification(product.fcmToken);
     res.status(201).json({ success: true, data: newProduct });
   } catch (error) {
     console.log("Error:", error.message);
