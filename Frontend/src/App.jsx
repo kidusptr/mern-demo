@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import AddProduct from "./pages/AddProduct";
 import Navbar from "./components/Navbar";
 import { useEffect } from "react";
-import { useProductStore } from "../store/product.js";
+import { useProductStore } from "./store/product.js";
 
 function App() {
   const setFcmToken = useProductStore((state) => state.setFcmToken);
