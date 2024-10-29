@@ -44,8 +44,8 @@ export const createProduct = async (req, res) => {
     if (product.fcmToken)
       sendNotification(
         product.fcmToken,
-        "Updated",
-        "Your product was updated successfully!!!"
+        "Success",
+        "Your product was added successfully!!!"
       );
     res.status(201).json({ success: true, data: newProduct });
   } catch (error) {
