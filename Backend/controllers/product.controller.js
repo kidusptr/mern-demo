@@ -41,11 +41,12 @@ export const createProduct = async (req, res) => {
   const newProduct = new Product(product);
   try {
     await newProduct.save();
-    sendNotification(
-      product.fcmToken,
-      "Success",
-      "Your product was added successfully!!!"
-    );
+    if (product.fcmToken)
+      sendNotification(
+        product.fcmToken,
+        "Updated",
+        "Your product was updated successfully!!!"
+      );
     res.status(201).json({ success: true, data: newProduct });
   } catch (error) {
     console.log("Error:", error.message);
@@ -70,11 +71,12 @@ export const updateProduct = async (req, res) => {
     const updatedProduct = await Product.findByIdAndUpdate(id, product, {
       new: true,
     });
-    sendNotification(
-      product.fcmToken,
-      "Success",
-      "Your product was updated successfully!!!"
-    );
+    if (product.fcmToken)
+      sendNotification(
+        product.fcmToken,
+        "Updated",
+        "Your product was updated successfully!!!"
+      );
     res.status(200).json({ success: true, data: updatedProduct });
   } catch (error) {
     console.log("Error:", error.message);
@@ -94,6 +96,12 @@ export const deleteProduct = async (req, res) => {
   console.log(id);
   try {
     await Product.findByIdAndDelete(id);
+    if (product.fcmToken)
+      sendNotification(
+        product.fcmToken,
+        "Deleted",
+        "Product was deleted successfully!!!"
+      );
     res.status(200).json({ success: true, message: "Product deleted" });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
