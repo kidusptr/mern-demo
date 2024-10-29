@@ -23,6 +23,7 @@ export const useProductStore = create((set) => ({
       },
       body: JSON.stringify(requestBody),
     });
+    console.log(fcmToken);
 
     const data = await res.json();
     set((state) => ({ products: [...state.products, data.data] }));
@@ -70,7 +71,7 @@ export const useProductStore = create((set) => ({
         "Content-Type": "application/json",
       },
 
-      body: JSON.stringify(updatedProduct),
+      body: JSON.stringify(requestBody),
     });
 
     const data = await res.json();

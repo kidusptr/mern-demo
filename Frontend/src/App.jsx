@@ -15,6 +15,7 @@ function App() {
       if (event.data) {
         setFcmToken(event.data);
       }
+      console.log(event.data);
     });
 
     return () => window.removeEventListener("message", listener);
