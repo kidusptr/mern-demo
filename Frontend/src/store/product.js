@@ -2,6 +2,8 @@ import { create } from "zustand";
 
 export const useProductStore = create((set) => ({
   products: [],
+  fcmToken: "", // Add token to state
+  setFcmToken: (token) => set({ fcmToken: token }),
   setProducts: (products) => set({ products }),
   addProduct: async (newProduct) => {
     if (!newProduct.name || !newProduct.price || !newProduct.description) {
@@ -11,12 +13,15 @@ export const useProductStore = create((set) => ({
       };
     }
 
+    const { fcmToken } = useProductStore.getState(); // Retrieve the FCM token
+
+    const requestBody = { ...newProduct, fcmToken }; // Add the token to the request body
     const res = await fetch("/api/products", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newProduct),
+      body: JSON.stringify(requestBody),
     });
 
     const data = await res.json();
@@ -56,11 +61,15 @@ export const useProductStore = create((set) => ({
   },
 
   updateProduct: async (id, updatedProduct) => {
+    const { fcmToken } = useProductStore.getState(); // Retrieve the FCM token
+
+    const requestBody = { ...updatedProduct, fcmToken }; // Add the token to the request body
     const res = await fetch(`/api/products/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
+
       body: JSON.stringify(updatedProduct),
     });
 
