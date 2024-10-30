@@ -13,7 +13,14 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
-    <Container maxW={"1140px"} px={4}>
+    <Container
+      maxW={"1140px"}
+      px={4}
+      position={"sticky"}
+      top={0}
+      zIndex={10}
+      bgColor={colorMode === "light" ? "white" : "gray.800"}
+    >
       <Flex
         h={16}
         alignItems={"center"}
