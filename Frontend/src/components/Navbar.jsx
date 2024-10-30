@@ -14,7 +14,7 @@ const Navbar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   return (
     <Container
-      maxW={"1140px"}
+      maxW={"2140px"}
       px={4}
       position={"sticky"}
       top={0}
