@@ -12,11 +12,13 @@ import {
   Box,
   Divider,
   useToast,
+  useColorMode,
 } from "@chakra-ui/react";
 import { useProductStore } from "../store/product";
 
 const ProductDetails = () => {
   const { id } = useParams();
+  const { colorMode, toggleColorMode } = useColorMode();
   const { products, updateProduct, deleteProduct } = useProductStore();
   const [product, setProduct] = useState(null);
   const [editMode, setEditMode] = useState(false);
@@ -71,7 +73,7 @@ const ProductDetails = () => {
         overflow="hidden"
         boxShadow="md"
         p={6}
-        bg="white"
+        bgColor={colorMode === "light" ? "white" : "gray.800"}
       >
         <VStack spacing={6}>
           <Heading size="lg" textAlign="center">
@@ -128,7 +130,7 @@ const ProductDetails = () => {
               <Image
                 src={product.image}
                 alt={product.name}
-                boxSize="300px"
+                //boxSize="300px"
                 objectFit="cover"
                 borderRadius="md"
                 boxShadow="sm"
