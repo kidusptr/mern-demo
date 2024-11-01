@@ -8,19 +8,19 @@ import { useProductStore } from "./store/product.js";
 import ProductDetails from "./pages/ProductDetails";
 
 function App() {
-  // const setFcmToken = useProductStore((state) => state.setFcmToken);
+  const setFcmToken = useProductStore((state) => state.setFcmToken);
 
-  // useEffect(() => {
-  //   window.addEventListener("message", (event) => {
-  //     // Save token to Zustand when received from WebView
-  //     if (event.data) {
-  //       setFcmToken(event.data);
-  //     }
-  //     console.log(event.data);
-  //   });
+  useEffect(() => {
+    window.addEventListener("message", (event) => {
+      // Save token to Zustand when received from WebView
+      if (event.data) {
+        setFcmToken(event.data);
+      }
+      console.log(event.data);
+    });
 
-  //   return () => window.removeEventListener("message", listener);
-  // }, [setFcmToken]);
+    return () => window.removeEventListener("message", listener);
+  }, [setFcmToken]);
   return (
     <>
       <Box minH={"100vh"} bg={useColorModeValue("gray.100", "gray.900")}>
