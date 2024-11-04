@@ -78,15 +78,15 @@ const ProductCard = ({ product }) => {
   const [action, setAction] = useState("");
 
   return (
-    <Link to={`/product/${product._id}`}>
-      <Box
-        shadow={"lg"}
-        rounded={"lg"}
-        overflow={"hidden"}
-        transition={"all 0.4s"}
-        bg={bgColor}
-        _hover={{ transform: "translateY(-5px)", shadow: "xl" }}
-      >
+    <Box
+      shadow={"lg"}
+      rounded={"lg"}
+      overflow={"hidden"}
+      transition={"all 0.4s"}
+      bg={bgColor}
+      _hover={{ transform: "translateY(-5px)", shadow: "xl" }}
+    >
+      <Link to={`/product/${product._id}`}>
         <Image
           src={product.image}
           alt={product.name}
@@ -102,96 +102,125 @@ const ProductCard = ({ product }) => {
           <Text fontWeight={"bold"} fontSize={"xl"} color={textColor} mb={4}>
             ${product.price}
           </Text>
-          <HStack spacing={2}>
-            <IconButton
-              icon={<EditIcon />}
-              colorScheme="blue"
-              onClick={() => {
-                {
-                  setAction("update");
-                }
-                {
-                  onOpen();
-                }
-              }}
-            />
-            <IconButton
-              icon={<DeleteIcon />}
-              colorScheme="red"
-              onClick={() => {
-                {
-                  setAction("delete");
-                }
-                {
-                  onOpen();
-                }
-              }}
-            />
-          </HStack>
         </Box>
-        {action === "update" && (
+      </Link>
+      <HStack spacing={2} p={4}>
+        <IconButton
+          icon={<EditIcon />}
+          colorScheme="blue"
+          onClick={() => {
+            {
+              setAction("update");
+            }
+            {
+              onOpen();
+            }
+          }}
+        />
+        <IconButton
+          icon={<DeleteIcon />}
+          colorScheme="red"
+          onClick={() => {
+            {
+              setAction("delete");
+            }
+            {
+              onOpen();
+            }
+          }}
+        />
+      </HStack>
+
+      {action === "update" && (
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay>
+            <ModalContent>
+              <ModalHeader>Update Product</ModalHeader>
+              <ModalCloseButton />
+              <ModalBody>
+                <VStack spacing={4}>
+                  <Input
+                    type="text"
+                    placeholder="Product Name"
+                    value={updatedProduct.name}
+                    onChange={(e) => {
+                      setUpdatedProduct({
+                        ...updatedProduct,
+                        name: e.target.value,
+                      });
+                    }}
+                  />
+                  <Input
+                    type="number"
+                    placeholder="Product Price"
+                    value={updatedProduct.price}
+                    onChange={(e) => {
+                      setUpdatedProduct({
+                        ...updatedProduct,
+                        price: e.target.value,
+                      });
+                    }}
+                  />
+                  <Input
+                    type="text"
+                    placeholder="Product Description"
+                    value={updatedProduct.description}
+                    onChange={(e) => {
+                      setUpdatedProduct({
+                        ...updatedProduct,
+                        description: e.target.value,
+                      });
+                    }}
+                  />
+                  <Input
+                    type="text"
+                    placeholder="Image URL"
+                    value={updatedProduct.image}
+                    onChange={(e) => {
+                      setUpdatedProduct({
+                        ...updatedProduct,
+                        image: e.target.value,
+                      });
+                    }}
+                  />{" "}
+                </VStack>
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  colorScheme="blue"
+                  mr={3}
+                  onClick={() =>
+                    handleUpdateProduct(product._id, updatedProduct)
+                  }
+                >
+                  Update
+                </Button>
+                <Button variant="ghost" onClick={onClose}>
+                  Cancel
+                </Button>
+              </ModalFooter>
+            </ModalContent>
+          </ModalOverlay>
+        </Modal>
+      )}
+      {
+        /* Delete Modal */
+        action === "delete" && (
           <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay>
               <ModalContent>
-                <ModalHeader>Update Product</ModalHeader>
+                <ModalHeader>Delete Product</ModalHeader>
                 <ModalCloseButton />
                 <ModalBody>
-                  <VStack spacing={4}>
-                    <Input
-                      type="text"
-                      placeholder="Product Name"
-                      value={updatedProduct.name}
-                      onChange={(e) => {
-                        setUpdatedProduct({
-                          ...updatedProduct,
-                          name: e.target.value,
-                        });
-                      }}
-                    />
-                    <Input
-                      type="number"
-                      placeholder="Product Price"
-                      value={updatedProduct.price}
-                      onChange={(e) => {
-                        setUpdatedProduct({
-                          ...updatedProduct,
-                          price: e.target.value,
-                        });
-                      }}
-                    />
-                    <Input
-                      type="text"
-                      placeholder="Product Description"
-                      value={updatedProduct.description}
-                      onChange={(e) => {
-                        setUpdatedProduct({
-                          ...updatedProduct,
-                          description: e.target.value,
-                        });
-                      }}
-                    />
-                    <Input
-                      type="text"
-                      placeholder="Image URL"
-                      value={updatedProduct.image}
-                      onChange={(e) => {
-                        setUpdatedProduct({
-                          ...updatedProduct,
-                          image: e.target.value,
-                        });
-                      }}
-                    />{" "}
-                  </VStack>
+                  <Text>Are you sure you want to delete this product?</Text>
                 </ModalBody>
                 <ModalFooter>
                   <Button
-                    colorScheme="blue"
+                    colorScheme="red"
                     mr={3}
-                    onClick={() =>
-                      handleUpdateProduct(product._id, updatedProduct)
-                    }
+                    onClick={() => handleDeleteProduct(product._id)}
                   >
-                    Update
+                    Delete
                   </Button>
                   <Button variant="ghost" onClick={onClose}>
                     Cancel
@@ -200,37 +229,9 @@ const ProductCard = ({ product }) => {
               </ModalContent>
             </ModalOverlay>
           </Modal>
-        )}
-        {
-          /* Delete Modal */
-          action === "delete" && (
-            <Modal isOpen={isOpen} onClose={onClose}>
-              <ModalOverlay>
-                <ModalContent>
-                  <ModalHeader>Delete Product</ModalHeader>
-                  <ModalCloseButton />
-                  <ModalBody>
-                    <Text>Are you sure you want to delete this product?</Text>
-                  </ModalBody>
-                  <ModalFooter>
-                    <Button
-                      colorScheme="red"
-                      mr={3}
-                      onClick={() => handleDeleteProduct(product._id)}
-                    >
-                      Delete
-                    </Button>
-                    <Button variant="ghost" onClick={onClose}>
-                      Cancel
-                    </Button>
-                  </ModalFooter>
-                </ModalContent>
-              </ModalOverlay>
-            </Modal>
-          )
-        }
-      </Box>
-    </Link>
+        )
+      }
+    </Box>
   );
 };
 

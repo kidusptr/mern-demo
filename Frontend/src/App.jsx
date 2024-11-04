@@ -11,15 +11,18 @@ function App() {
   const setFcmToken = useProductStore((state) => state.setFcmToken);
 
   useEffect(() => {
-    window.addEventListener("message", (event) => {
-      // Save token to Zustand when received from WebView
+    // Define the event listener function separately
+    const handleMessage = (event) => {
       if (event.data) {
         setFcmToken(event.data);
       }
-      console.log(event.data);
-    });
+    };
 
-    return () => window.removeEventListener("message", listener);
+    // Add event listener
+    window.addEventListener("message", handleMessage);
+
+    // Clean up event listener on unmount
+    return () => window.removeEventListener("message", handleMessage);
   }, [setFcmToken]);
   return (
     <>

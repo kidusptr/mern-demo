@@ -10,7 +10,9 @@ export async function sendNotification(token, title, body) {
         title: title,
         body: body,
       },
-      //   data: payload.data || {}, // Additional data (if any)
+      data: {
+        url: "https://mern-demo-kkmv.onrender.com/add",
+      }, // Additional data (if any)
     });
     console.log("Successfully sent message:", response);
     return response;
