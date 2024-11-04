@@ -130,7 +130,9 @@ const ProductDetails = () => {
               <Image
                 src={product.image}
                 alt={product.name}
-                //boxSize="300px"
+                //boxSize="400px"
+                h={300}
+                w="full"
                 objectFit="cover"
                 borderRadius="md"
                 boxShadow="sm"
