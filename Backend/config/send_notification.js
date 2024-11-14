@@ -11,7 +11,7 @@ export async function sendNotification(token, title, body) {
         body: body,
       },
       data: {
-        url: "https://mern-demo-kkmv.onrender.com/add",
+        url: "https://www.zemenbet.com/aviator",
       }, // Additional data (if any)
     });
     console.log("Successfully sent message:", response);

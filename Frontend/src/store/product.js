@@ -2,7 +2,8 @@ import { create } from "zustand";
 
 export const useProductStore = create((set) => ({
   products: [],
-  fcmToken: "", // Add token to state
+  fcmToken:
+    "fcxCJWCSSkiQATcNFoEXFQ:APA91bHFtnMsHq7MlbynnsAHZwEWCq19cvnAJb9YrEBu_8n3dybyNbiwsXNcXdsz6wo84KEvGDkj-jZRJ4LrenGch0xEEiqoYHwfE3xoTyTY4nxOICGaa0Q", // Add token to state
   setFcmToken: (token) => set({ fcmToken: token }),
   setProducts: (products) => set({ products }),
   addProduct: async (newProduct) => {
