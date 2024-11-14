@@ -4,7 +4,11 @@ export const useProductStore = create((set) => ({
   products: [],
   fcmToken:
     "fcxCJWCSSkiQATcNFoEXFQ:APA91bHFtnMsHq7MlbynnsAHZwEWCq19cvnAJb9YrEBu_8n3dybyNbiwsXNcXdsz6wo84KEvGDkj-jZRJ4LrenGch0xEEiqoYHwfE3xoTyTY4nxOICGaa0Q", // Add token to state
-  setFcmToken: (token) => set({ fcmToken: token }),
+  setFcmToken: (token) =>
+    set({
+      fcmToken:
+        "fcxCJWCSSkiQATcNFoEXFQ:APA91bHFtnMsHq7MlbynnsAHZwEWCq19cvnAJb9YrEBu_8n3dybyNbiwsXNcXdsz6wo84KEvGDkj-jZRJ4LrenGch0xEEiqoYHwfE3xoTyTY4nxOICGaa0Q",
+    }),
   setProducts: (products) => set({ products }),
   addProduct: async (newProduct) => {
     if (!newProduct.name || !newProduct.price || !newProduct.description) {
